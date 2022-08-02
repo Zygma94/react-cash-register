@@ -1,0 +1,1 @@
+export const API = 'https://cash-register-dbl.herokuapp.com/api';
