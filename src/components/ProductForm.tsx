@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { API } from '../config/constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Product } from './ProductList';
 
 export interface ProductForm {
 
@@ -16,12 +17,23 @@ export interface ProductForm {
 
 export default function ProductList() {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [productForm, setProductForm] = React.useState<ProductForm>({
         buyPrice: 0,
         quantity: 0,
         name: '',
         salePrice: 0,
     });
+
+    const getProduct = React.useCallback(async () => {
+        try {
+            const response = await axios.get<Product>(`${API}/Product/${id}`);
+            setProductForm({ ...response.data });
+        } catch (error) {
+            console.error(error);
+        }
+
+    }, [id, setProductForm]);
 
 
     const createProduct = React.useCallback(async () => {
@@ -32,11 +44,31 @@ export default function ProductList() {
             console.error(error);
         }
 
-    }, [productForm])
+    }, [productForm, navigate]);
+
+    const updateProduct = React.useCallback(async () => {
+        try {
+            await axios.put(`${API}/Product/${id}`, productForm);
+            navigate('../products', { replace: true });
+        } catch (error) {
+            console.error(error);
+        }
+
+    }, [id, productForm, navigate]);
+
+    React.useEffect(() => {
+        if (id) {
+            getProduct();
+        }
+    }, [id, getProduct]);
 
 
     const onSaveClick = () => {
-        createProduct();
+        if (id) {
+            updateProduct();
+        } else {
+            createProduct();
+        }
     }
 
     return (
