@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { API } from '../config/constants';
+import { NavLink } from 'react-router-dom';
 
 export interface Product {
     productId: number;
@@ -30,6 +31,9 @@ export default function ProductList() {
 
     return (
         <div className='product-list'>
+            <NavLink to='/products/product/new'>
+                <button>Add</button>
+            </NavLink>
             <table className='product-table'>
                 <thead>
                     <tr>
@@ -52,7 +56,7 @@ export default function ProductList() {
                                 <td>{product.isActive ? 'Yes' : 'No'}</td>
                                 <td>
                                     <button>Edit</button>
-                                    <button>Deactivate</button>
+                                    <button>{product.isActive ? 'Deactivate' : 'Activate'}</button>
                                 </td>
                             </tr>
                         ))

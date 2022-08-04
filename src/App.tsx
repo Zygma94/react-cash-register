@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCashRegister } from 'react-icons/fa';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Navigate replace to='products' />} />
           <Route path='products' element={<ProductList />} />
+          <Route path='products/product/new' element={<ProductForm />} />
+
         </Routes>
       </div>
     </div>
