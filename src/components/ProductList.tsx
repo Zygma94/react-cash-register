@@ -26,6 +26,22 @@ export default function ProductList() {
 
     }, [setProducts]);
 
+    const toggleProduct = React.useCallback(async (id: number) => {
+        try {
+            await axios.patch<ReadonlyArray<Product>>(`${API}/Product/Toggle/${id}`);
+            const updateProducts = [...products];
+            const product = updateProducts.find(p => p.productId === id);
+            if (product) {
+                product.isActive = !product?.isActive;
+            }
+            setProducts(updateProducts);
+        } catch (error) {
+
+            console.error(error);
+        }
+
+    }, [products, setProducts]);
+
     React.useEffect(() => { getProducts() },
         [getProducts]);
 
@@ -59,7 +75,9 @@ export default function ProductList() {
                                     <NavLink to={`/products/product/${product.productId}`}>
                                         <button>Edit</button>
                                     </NavLink>
-                                    <button>{product.isActive ? 'Deactivate' : 'Activate'}</button>
+                                    <button onClick={() => toggleProduct(product.productId)}>
+                                        {product.isActive ? 'Deactivate' : 'Activate'}
+                                    </button>
                                 </td>
                             </tr>
                         ))
