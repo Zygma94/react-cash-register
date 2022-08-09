@@ -207,7 +207,7 @@ export default function SaleList() {
                     <label>Total</label>
                     <input readOnly type="number" min={0} value={saleForm.total} />
                 </div>
-                <div className="form-field">
+                {!saleForm.isLoan || editMode && (<div className="form-field">
                     <label>Payment</label>
                     <input type="number" min={0} value={saleForm.payment} onChange={(e) =>
                         setSaleForm({
@@ -215,7 +215,7 @@ export default function SaleList() {
                             payment: parseInt(e.target.value),
                             change: parseInt(e.target.value) - (saleForm.total || 0)
                         })} />
-                </div>
+                </div>)}
                 <div className="form-field">
                     <label>Change</label>
                     <input readOnly type="number" min={0} value={saleForm.change} />
