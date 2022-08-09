@@ -66,9 +66,9 @@ export default function SaleList() {
                             <tr key={sale.saleId} className={index % 2 === 1 ? 'odd' : 'even'}>
                                 <td>{sale.saleId}</td>
                                 <td>{sale.date}</td>
-                                <td>{sale.total}</td>
                                 <td>{sale.isLoan ? 'Yes' : 'No'}</td>
                                 <td>{sale.apartmentNumber}</td>
+                                <td>{sale.total}</td>
                                 <td>{sale.payment}</td>
                                 <td>{sale.payment > 0 ? sale.payment - sale.total : 0}</td>
                                 <td>
