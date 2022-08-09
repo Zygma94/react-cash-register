@@ -34,6 +34,7 @@ export interface SaleForm {
 export default function SaleList() {
     const navigate = useNavigate();
     const { id } = useParams();
+    const [editMode, setEditMode] = React.useState(false);
     const [products, setProducts] = React.useState<ReadonlyArray<ProductOption>>([]);
     const [saleForm, setSaleForm] = React.useState<SaleForm>({
         isLoan: false,
@@ -97,9 +98,10 @@ export default function SaleList() {
     React.useEffect(() => {
         getProducts();
         if (id) {
+            setEditMode(true);
             getSale();
         }
-    }, [id, getSale, getProducts]);
+    }, [id, getSale, getProducts, setEditMode]);
 
 
 
@@ -129,10 +131,10 @@ export default function SaleList() {
     return (
         <form className='sale-form'>
             <div className='sale-form-header'>
-                <h3>Register Sale</h3>
+                <h3>{editMode ? 'Edit' : 'Register'} Sale</h3>
             </div>
             <div className="sale-form-main">
-                {id && (
+                {editMode && (
                     <div className="form-field">
                         <label>Sale Id</label>
                         <input type="text" value={saleForm.saleId} readOnly />
@@ -142,6 +144,7 @@ export default function SaleList() {
                     <div className="form-group-header">
                         <div className="form-title">Products</div>
                         <button type='button'
+                            disabled={editMode}
                             onClick={() => setSaleForm({
                                 ...saleForm,
                                 productSales: [
@@ -156,6 +159,7 @@ export default function SaleList() {
                         {saleForm.productSales.map((productSale, index) => (
                             <div key={index} className="form-field">
                                 <Select
+                                    isDisabled={editMode}
                                     className='select'
                                     options={products}
                                     value={products.find(p => p.productId === productSale.productId)}
@@ -170,6 +174,7 @@ export default function SaleList() {
                                     className="medium"
                                     value={productSale.price || 0} />
                                 <input
+                                    disabled={editMode}
                                     className='tiny'
                                     min={1}
                                     type="number"
@@ -179,6 +184,7 @@ export default function SaleList() {
                                     })}
                                 />
                                 <button
+                                    disabled={editMode}
                                     type='button'
                                     onClick={() => setSaleForm({
                                         ...saleForm,
@@ -216,7 +222,7 @@ export default function SaleList() {
                 </div>
                 <div className="form-field">
                     <label>Is Loan?</label>
-                    <input type="checkbox" checked={saleForm.isLoan} onChange={(e) =>
+                    <input type="checkbox" disabled={editMode} checked={saleForm.isLoan} onChange={(e) =>
                         setSaleForm({
                             ...saleForm,
                             isLoan: e.target.checked
@@ -225,7 +231,7 @@ export default function SaleList() {
                 {saleForm.isLoan && (
                     <div className='form-field'>
                         <label>Apartment Number</label>
-                        <input type="text" value={saleForm.apartmentNumber} onChange={(e) =>
+                        <input type="text" disabled={editMode} value={saleForm.apartmentNumber} onChange={(e) =>
                             setSaleForm({
                                 ...saleForm,
                                 apartmentNumber: e.target.value

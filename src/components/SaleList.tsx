@@ -70,7 +70,7 @@ export default function SaleList() {
                                 <td>
 
                                     <NavLink to={`/sales/sale/${sale.saleId}`}>
-                                        <button>Edit</button>
+                                        <button disabled={sale.payment > 0}>Edit</button>
                                     </NavLink>
                                 </td>
                             </tr>
