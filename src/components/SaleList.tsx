@@ -3,7 +3,11 @@ import axios from 'axios';
 import { API } from '../config/constants';
 import { NavLink } from 'react-router-dom';
 import { Product } from './ProductList';
+import { disconnect } from 'process';
 
+export interface Dict<TValue> {
+    [key: string]: TValue
+}
 
 export interface ProductSale {
     productSaleId: number,
@@ -26,17 +30,19 @@ export interface Sale {
 
 export default function SaleList() {
     const [sales, setSales] = React.useState<ReadonlyArray<Sale>>([]);
+    const [showDetail, setShowDetail] = React.useState<Dict<boolean>>({});
 
     const getSales = React.useCallback(async () => {
         try {
             const response = await axios.get<ReadonlyArray<Sale>>(`${API}/Sale`);
             setSales(response.data);
+            setShowDetail(response.data.reduce((dict, sale) => ({ ...dict, [sale.saleId]: false }), {} as Dict<boolean>))
         } catch (error) {
 
             console.error(error);
         }
 
-    }, [setSales]);
+    }, [setSales, setShowDetail]);
 
 
     React.useEffect(() => { getSales() },
@@ -63,21 +69,32 @@ export default function SaleList() {
                 <tbody>
                     {sales.length > 0 ? (
                         sales.map((sale, index) => (
-                            <tr key={sale.saleId} className={index % 2 === 1 ? 'odd' : 'even'}>
-                                <td>{sale.saleId}</td>
-                                <td>{sale.date}</td>
-                                <td>{sale.isLoan ? 'Yes' : 'No'}</td>
-                                <td>{sale.apartmentNumber}</td>
-                                <td>{sale.total}</td>
-                                <td>{sale.payment}</td>
-                                <td>{sale.payment > 0 ? sale.payment - sale.total : 0}</td>
-                                <td>
+                            <React.Fragment>
+                                <tr key={sale.saleId} className={index % 2 === 1 ? 'odd' : 'even'}>
+                                    <td>
+                                        <button onClick={() =>
+                                            setShowDetail({ ...showDetail, [sale.saleId]: !showDetail[sale.saleId] })}
+                                            >{showDetail[sale.saleId] ? '↓' : '→'}</button>
+                                        {sale.saleId}
+                                    </td>
+                                    <td>{sale.date}</td>
+                                    <td>{sale.isLoan ? 'Yes' : 'No'}</td>
+                                    <td>{sale.apartmentNumber}</td>
+                                    <td>{sale.total}</td>
+                                    <td>{sale.payment}</td>
+                                    <td>{sale.payment > 0 ? sale.payment - sale.total : 0}</td>
+                                    <td>
 
-                                    <NavLink to={`/sales/sale/${sale.saleId}`}>
-                                        <button disabled={sale.payment > 0}>Edit</button>
-                                    </NavLink>
-                                </td>
-                            </tr>
+                                        <NavLink to={`/sales/sale/${sale.saleId}`}>
+                                            <button disabled={sale.payment > 0}>Edit</button>
+                                        </NavLink>
+                                    </td>
+                                </tr>
+                                {showDetail[sale.saleId] && (
+                                    <tr>
+                                        <td colSpan={8}> Esto es un detalle</td>
+                                    </tr>)}
+                            </React.Fragment>
                         ))
                     ) : (
 
