@@ -207,19 +207,6 @@ export default function SaleList() {
                     <label>Total</label>
                     <input readOnly type="number" min={0} value={saleForm.total} />
                 </div>
-                {!saleForm.isLoan || editMode && (<div className="form-field">
-                    <label>Payment</label>
-                    <input type="number" min={0} value={saleForm.payment} onChange={(e) =>
-                        setSaleForm({
-                            ...saleForm,
-                            payment: parseInt(e.target.value),
-                            change: parseInt(e.target.value) - (saleForm.total || 0)
-                        })} />
-                </div>)}
-                <div className="form-field">
-                    <label>Change</label>
-                    <input readOnly type="number" min={0} value={saleForm.change} />
-                </div>
                 <div className="form-field">
                     <label>Is Loan?</label>
                     <input type="checkbox" disabled={editMode} checked={saleForm.isLoan} onChange={(e) =>
@@ -228,6 +215,24 @@ export default function SaleList() {
                             isLoan: e.target.checked
                         })} />
                 </div>
+                {(!saleForm.isLoan || editMode) && (
+                    <React.Fragment>
+                        <div className="form-field">
+                            <label>Payment</label>
+                            <input type="number" min={0} value={saleForm.payment} onChange={(e) =>
+                                setSaleForm({
+                                    ...saleForm,
+                                    payment: parseInt(e.target.value),
+                                    change: parseInt(e.target.value) - (saleForm.total || 0)
+                                })} />
+                        </div>
+                        <div className="form-field">
+                            <label>Change</label>
+                            <input readOnly type="number" min={0} value={saleForm.change} />
+                        </div>
+                    </React.Fragment>)}
+
+
                 {saleForm.isLoan && (
                     <div className='form-field'>
                         <label>Apartment Number</label>
@@ -238,6 +243,8 @@ export default function SaleList() {
                             })} />
                     </div>
                 )}
+
+
                 <div className="sale-form-footer">
                     <button type='button' onClick={() => navigate('../sales', { replace: true })}>
                         Cancel

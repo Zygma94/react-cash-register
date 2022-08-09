@@ -55,6 +55,8 @@ export default function SaleList() {
                         <th>Total</th>
                         <th>Is Loan</th>
                         <th>Apartment Number</th>
+                        <th>Payment</th>
+                        <th>Change</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -67,6 +69,8 @@ export default function SaleList() {
                                 <td>{sale.total}</td>
                                 <td>{sale.isLoan ? 'Yes' : 'No'}</td>
                                 <td>{sale.apartmentNumber}</td>
+                                <td>{sale.payment}</td>
+                                <td>{sale.payment > 0 ? sale.payment - sale.total : 0}</td>
                                 <td>
 
                                     <NavLink to={`/sales/sale/${sale.saleId}`}>
