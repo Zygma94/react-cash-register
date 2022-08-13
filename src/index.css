@@ -19,3 +19,86 @@ code {
 .product-table tr.even {
   background-color: burlywood;
 }
+
+.form-group .form-field {
+  display: flex;
+}
+
+.form-group .form-field .medium {
+  max-width: 100px;
+}
+
+.form-group .form-field .tiny {
+  max-width: 50px;
+}
+
+.form-group .form-field .select {
+  width: 100%;
+  min-width: 200px;
+}
+
+.sale-form,
+.product-form {
+  background-color: rgb(167, 157, 157);
+  padding: 1rem;
+  height: fit-content;
+  border-radius: 10px;
+  min-width: 350px;
+}
+
+.sale-form .sale-form-header h3 {
+  margin-top: 0px;
+}
+
+.form-title,
+.sale-form .form-field {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sale-form .form-field {
+  min-height: 40px;
+  margin-bottom: 0.5rem;
+}
+
+.form-group .form-field button {
+  max-height: 20px;
+  max-width: 20px;
+  align-self: center;
+}
+
+.form-group-body .form-field button,
+.form-group-header .form-title button {
+  max-height: 20px;
+  max-width: 20px;
+  align-self: center;
+  padding: 0 5px 0 5px;
+  border-radius: 30%;
+  border: 1px solid gray;
+}
+
+@media only screen and (max-width: 768px) {
+  .app-navigation {
+    flex-direction: column;
+  }
+
+  .app-navigation .app-navigation-menu {
+    flex-direction: row;
+  }
+
+  .app-navigation .app-navigation-menu .app-navigation-item {
+    margin-right: 1rem;
+  }
+
+  .app-navigation .app-navigation-menu .app-navigation-item.selected {
+    background-color: burlywood;
+  }
+
+  .app-navigation .sale-list,
+  .app-navigation .product-list {
+    height: calc(100vh - 105px);
+    width: 100%;
+    background: burlywood;
+  }
+
+}

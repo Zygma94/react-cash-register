@@ -74,7 +74,7 @@ export default function SaleList() {
                                     <td>
                                         <button onClick={() =>
                                             setShowDetail({ ...showDetail, [sale.saleId]: !showDetail[sale.saleId] })}
-                                            >{showDetail[sale.saleId] ? '↓' : '→'}</button>
+                                        >{showDetail[sale.saleId] ? '↓' : '→'}</button>
                                         {sale.saleId}
                                     </td>
                                     <td>{sale.date}</td>
@@ -92,7 +92,28 @@ export default function SaleList() {
                                 </tr>
                                 {showDetail[sale.saleId] && (
                                     <tr>
-                                        <td colSpan={8}> Esto es un detalle</td>
+                                        <td colSpan={8}>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {sale.productSales.map((productSale, psIndex) => (
+                                                        <tr>
+                                                            <td>{productSale.product.name}</td>
+                                                            <td>{productSale.quantity}</td>
+                                                            <td>{productSale.price}</td>
+                                                            <td>{productSale.quantity * productSale.price}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </td>
                                     </tr>)}
                             </React.Fragment>
                         ))

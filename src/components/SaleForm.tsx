@@ -142,18 +142,19 @@ export default function SaleList() {
                 )}
                 <div className="form-group">
                     <div className="form-group-header">
-                        <div className="form-title">Products</div>
-                        <button type='button'
-                            disabled={editMode}
-                            onClick={() => setSaleForm({
-                                ...saleForm,
-                                productSales: [
-                                    ...saleForm.productSales,
-                                    { productId: 0, quantity: 1 }
-                                ]
-                            })}>
-                            +
-                        </button>
+                        <div className="form-title">Products
+                            <button type='button'
+                                disabled={editMode}
+                                onClick={() => setSaleForm({
+                                    ...saleForm,
+                                    productSales: [
+                                        ...saleForm.productSales,
+                                        { productId: 0, quantity: 1 }
+                                    ]
+                                })}>
+                                +
+                            </button>
+                        </div>
                     </div>
                     <div className="form-group-body">
                         {saleForm.productSales.map((productSale, index) => (
@@ -204,8 +205,10 @@ export default function SaleList() {
 
 
                     </div>
-                    <label>Total</label>
-                    <input readOnly type="number" min={0} value={saleForm.total} />
+                    <div className='form-field'>
+                        <label>Total</label>
+                        <input readOnly type="number" min={0} value={saleForm.total} />
+                    </div>
                 </div>
                 <div className="form-field">
                     <label>Is Loan?</label>
