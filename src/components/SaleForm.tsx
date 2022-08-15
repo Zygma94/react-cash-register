@@ -42,8 +42,10 @@ export default function SaleList() {
         payment: 0,
         productSales: [{
             productId: 0,
-            quantity: 1
-        }]
+            quantity: 1,
+            price: 0
+        }],
+        total: 0
     });
 
     const getProducts = React.useCallback(async () => {

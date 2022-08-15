@@ -4,6 +4,7 @@ import { API } from '../config/constants';
 import { NavLink } from 'react-router-dom';
 import { Product } from './ProductList';
 import { disconnect } from 'process';
+import Loading from 'react-loading';
 
 export interface Dict<TValue> {
     [key: string]: TValue
@@ -31,8 +32,10 @@ export interface Sale {
 export default function SaleList() {
     const [sales, setSales] = React.useState<ReadonlyArray<Sale>>([]);
     const [showDetail, setShowDetail] = React.useState<Dict<boolean>>({});
+    const [isLoading, setLoading] = React.useState<boolean>(false);
 
     const getSales = React.useCallback(async () => {
+        setLoading(true);
         try {
             const response = await axios.get<ReadonlyArray<Sale>>(`${API}/Sale`);
             setSales(response.data);
@@ -41,8 +44,8 @@ export default function SaleList() {
 
             console.error(error);
         }
-
-    }, [setSales, setShowDetail]);
+        setLoading(false);
+    }, [setSales, setShowDetail, setLoading]);
 
 
     React.useEffect(() => { getSales() },
@@ -69,8 +72,8 @@ export default function SaleList() {
                 <tbody>
                     {sales.length > 0 ? (
                         sales.map((sale, index) => (
-                            <React.Fragment>
-                                <tr key={sale.saleId} className={index % 2 === 1 ? 'odd' : 'even'}>
+                            <React.Fragment key={sale.saleId}>
+                                <tr className={index % 2 === 1 ? 'odd' : 'even'}>
                                     <td>
                                         <button onClick={() =>
                                             setShowDetail({ ...showDetail, [sale.saleId]: !showDetail[sale.saleId] })}
@@ -104,7 +107,7 @@ export default function SaleList() {
                                                 </thead>
                                                 <tbody>
                                                     {sale.productSales.map((productSale, psIndex) => (
-                                                        <tr>
+                                                        <tr key={productSale.productSaleId} className={psIndex % 2 === 1 ? 'odd' : 'even'}>
                                                             <td>{productSale.product.name}</td>
                                                             <td>{productSale.quantity}</td>
                                                             <td>{productSale.price}</td>
@@ -120,8 +123,10 @@ export default function SaleList() {
                     ) : (
 
                         <tr>
-                            <td className='center'>
-                                No Data Available
+                            <td className='center' colSpan={8}>
+                                {isLoading ? (
+                                    <Loading type='balls' color='black' className='loading-animation' />
+                                ) : <>No Data Available</>}
                             </td>
                         </tr>
 

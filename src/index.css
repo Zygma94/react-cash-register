@@ -12,6 +12,44 @@ code {
     monospace;
 }
 
+.app-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  min-height: calc(100vh - 100px);
+}
+
+.app-navigation .app-navigation-menu {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.app-navigation .app-navigation-menu .app-navigation-item {
+  text-decoration: none;
+  color: black;
+}
+
+.app-navigation .app-navigation-menu .app-navigation-item.selected {
+  font-weight: bold;
+}
+
+.app-navigation-content {
+  flex-basis: calc(100% - 72px);
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.loading-animation {
+  display: inline-block;
+  padding: 1rem;
+}
+
 .product-table tr.odd {
   background-color: aqua;
 }
