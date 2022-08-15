@@ -99,7 +99,7 @@ export default function SaleList() {
                                                         <th>Product</th>
                                                         <th>Quantity</th>
                                                         <th>Price</th>
-                                                        <th>Total</th>
+                                                        <th>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
