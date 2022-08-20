@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --oxford-blue: #0b132bff;
+  --space-cadet: #1c2541ff;
+  --y-in-mn-blue: #3a506bff;
+  --maximum-blue-green: #5bc0beff;
+  --white: #ffffffff;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,11 +16,97 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+  background-color: var(--maximum-blue-green);
+  }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+
+}
+
+.app {
+  background-color: var(--maximum-blue-green);
+}
+
+.product-list,
+.sale-list {
+  background-color: var(--y-in-mn-blue);
+  height: 200px;
+  max-height: auto;
+  padding: 2px 3px 5px 3px;
+}
+
+.app h2 {
+  background-color: var(--y-in-mn-blue);
+  font-family: 'Press Start 2P', cursive;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  color: white;
+  border-top: var(--y-in-mn-blue) solid;
+  margin-top: 0px;
+}
+
+.app h2 svg {
+  color: black;
+  margin-left: 5px;
+  margin-right: 10px;
+  height: 2rem;
+  width: 2rem;
+}
+
+.app h3 {
+  font-family: 'Press Start 2P', cursive;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  color: black;
+  font-size: 18px;
+  text-align: center;
+  background-color: var(--maximum-blue-green);
+  border: var(--maximum-blue-green) solid 20px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+input {
+  font-family: 'Silkscreen', cursive;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-bottom: 8px;
+  width: 80%;
+  border-radius: 5px;
+  height: 30px;
+  display: block;
+}
+
+
+label{
+  font-family: 'Press Start 2P';
+  font-size: 12px;
+}
+
+button {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Silkscreen', cursive;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+
+th {
+  background-color: antiquewhite;
+  font-family: 'Silkscreen', cursive;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border-color: black solid 2px;
+}
+
+.app-navigation-item {
+  font-family: 'Press Start 2P', cursive;
+  margin-bottom: 5px;
 }
 
 .app-navigation {
@@ -24,11 +121,16 @@ code {
   flex-direction: column;
   margin-left: 5px;
   margin-right: 5px;
+  border: var(--y-in-mn-blue) solid 4px;
+  height: 40px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .app-navigation .app-navigation-menu .app-navigation-item {
   text-decoration: none;
   color: black;
+  padding: 0px 5px 0px 5px;
 }
 
 .app-navigation .app-navigation-menu .app-navigation-item.selected {

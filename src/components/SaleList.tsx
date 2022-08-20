@@ -3,7 +3,6 @@ import axios from 'axios';
 import { API } from '../config/constants';
 import { NavLink } from 'react-router-dom';
 import { Product } from './ProductList';
-import { disconnect } from 'process';
 import Loading from 'react-loading';
 
 export interface Dict<TValue> {
